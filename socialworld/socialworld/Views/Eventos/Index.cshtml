@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+    List<socialworld.Models.Capa_Datos.evento> eventos = ViewBag.eventos;
+    decimal precio = ViewBag.precio;
+}
+
+<table class="form">
+    <tr>
+        <td class="titulotd">
+            <label class="lblnegrog">EVENTOS</label>
+        </td>
+    </tr>
+    <tr>
+        <td class="titulotd">
+            <label class="lblnegrog">Precio por Evento: @precio $</label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table class="tabla">
+                <tr>
+                    <td class="lbltd"><label class="lblnegro">nombre</label></td>
+                    <td class="lbltd"><label class="lblnegro">direccion</label></td>
+                    <td class="lbltd"><label class="lblnegro">fechainicio</label></td>
+                    <td class="lbltd"><label class="lblnegro">fechafinal</label></td>
+                    <td class="lbltd"><label class="lblnegro">cancelado</label></td>
+                    <td class="btnstd"><button id="nuevoevento" class="botonuevo"></button> </td>
+                </tr>
+                @if (eventos != null && eventos.Count > 0)
+                {
+                    foreach (var evento in eventos)
+                    {
+                        <tr>
+                            <td class="lbltd"><label class="lblnegro">@evento.nombre</label></td>
+                            <td class="lbltd"><label class="lblnegro">@evento.direccion</label></td>
+                            @{
+                                DateTime aux = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(evento.fechainicio);
+                            }
+                            <td class="lbltd"><label class="lblnegro">@aux</label></td>
+                            @{
+                               aux = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(evento.fechafinal);
+                            }
+                            <td class="lbltd"><label class="lblnegro">@aux</label></td>
+                            <td class="lbltd"><label class="lblnegro">@evento.cancelado.ToString()</label></td>
+                            <td class="btnstd">
+                                <button id="@evento.id" class="botonactualizar actualizarevento"></button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </td>
+    </tr>
+</table>

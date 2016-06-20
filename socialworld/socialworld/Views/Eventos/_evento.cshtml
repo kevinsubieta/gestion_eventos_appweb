@@ -1,0 +1,89 @@
+﻿@{
+    Layout = null;
+    socialworld.Models.Capa_Datos.evento evento = ViewBag.evento;
+    List<socialworld.Models.Capa_Datos.contacto> contactos = ViewBag.contactos;
+}
+
+<div style="width: 400px"></div>
+<table>
+    <tr>
+        <td class="titulotd">
+            <label class="lblnegrog">evento</label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>nombre</label>
+            <input id="nombreevento" class="inputp" maxlength="50" value="@( evento != null? evento.nombre:"" )" />
+            <label>direccion</label>
+            <input id="direccionevento" class="inputp" maxlength="50" value="@( evento != null? evento.direccion:"" )" />
+            <label>fechainicio</label>
+            @{
+                DateTime aux = new DateTime();
+                if (evento != null)
+                {
+                    aux = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(evento.fechainicio);
+                }
+            }
+            <input id="fechainicioevento" type="datetime-local" class="inputp" value="@( evento != null ? aux.Year + "-" + aux.Month.ToString("00") + "-" + aux.Day.ToString("00") + "T" + aux.Hour.ToString("00") +":"+ aux.Minute.ToString("00") : "")" />
+            <label>fechafinal</label>
+            @{
+                if (evento != null)
+                {
+                    aux = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(evento.fechafinal);
+                }
+            }
+            <input id="fechafinalevento" type="datetime-local" class="inputp" value="@( evento != null ? aux.Year + "-" + aux.Month.ToString("00") + "-" + aux.Day.ToString("00") + "T" + aux.Hour.ToString("00") +":"+ aux.Minute.ToString("00") : "")" />
+        </td>
+    </tr>
+    @if (evento != null)
+    {
+        <tr>
+            <td class="checktd">
+                <label id="canceladoevento" class="@(evento.cancelado? "checkboxcheked":"checkboxuncheked")" data-value="@(evento.cancelado? "1":"0")">cancelado</label>
+            </td>
+        </tr>
+    }
+    <tr>
+        <td>
+            <label class="lblnegro">Invitados</label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table class="tabla">
+                <tr>
+                    <td><label class="lblnegro">Contacto</label></td>
+                    <td></td>
+                </tr>
+                @if (contactos != null)
+                {
+                    foreach (var contacto in contactos)
+                    {
+                        <tr>
+                            <td class="lbltd"><label class="lblnegro">@(contacto.nombres + " " + contacto.apellidos)</label></td>
+                            @{
+                                bool invit = evento != null && evento.contactoes.Where(x => x.id == contacto.id).Count() > 0;
+                            }
+                            <td class="btnstd"><label id="@contacto.id" class="@( invit ? "checkboxcheked" : "checkboxuncheked") checkcontacto"></label></td>
+                        </tr>
+                    }
+                }
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="btnstda">
+            <button class="boton" id="cerrarevento">Cancelar</button>
+            @if (evento == null)
+            {
+                <button class="boton" id="registrarevento">Registrar</button>
+            }
+            else
+            {
+                <button class="boton" id="actualizarevento" data-id="@evento.id">Actualizar</button>
+            }
+        </td>
+    </tr>
+</table>
+<div id="contactoslist" data-add="" data-remove=""></div>

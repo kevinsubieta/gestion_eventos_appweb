@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EVENTOSBDModelStoreContainer" CdmEntityContainer="EVENTOSBDEntities">
+    <EntitySetMapping Name="tarifas">
+      <EntityTypeMapping TypeName="EVENTOSBDModel.tarifa">
+        <MappingFragment StoreEntitySet="tarifa">
+          <ScalarProperty Name="contacto" ColumnName="contacto" />
+          <ScalarProperty Name="evento" ColumnName="evento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="clientes">
+      <EntityTypeMapping TypeName="EVENTOSBDModel.cliente">
+        <MappingFragment StoreEntitySet="cliente">
+          <ScalarProperty Name="pass" ColumnName="pass" />
+          <ScalarProperty Name="usuario" ColumnName="usuario" />
+          <ScalarProperty Name="correo" ColumnName="correo" />
+          <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+          <ScalarProperty Name="nombres" ColumnName="nombres" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contactoes">
+      <EntityTypeMapping TypeName="EVENTOSBDModel.contacto">
+        <MappingFragment StoreEntitySet="contacto">
+          <ScalarProperty Name="idc" ColumnName="idc" />
+          <ScalarProperty Name="baja" ColumnName="baja" />
+          <ScalarProperty Name="precio" ColumnName="precio" />
+          <ScalarProperty Name="correo" ColumnName="correo" />
+          <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+          <ScalarProperty Name="nombres" ColumnName="nombres" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="eventoes">
+      <EntityTypeMapping TypeName="EVENTOSBDModel.evento">
+        <MappingFragment StoreEntitySet="evento">
+          <ScalarProperty Name="idc" ColumnName="idc" />
+          <ScalarProperty Name="cancelado" ColumnName="cancelado" />
+          <ScalarProperty Name="fechafinal" ColumnName="fechafinal" />
+          <ScalarProperty Name="fechainicio" ColumnName="fechainicio" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="precio" ColumnName="precio" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="invitacion" TypeName="EVENTOSBDModel.invitacion" StoreEntitySet="invitacion">
+      <EndProperty Name="evento">
+        <ScalarProperty Name="id" ColumnName="evento" />
+      </EndProperty>
+      <EndProperty Name="contacto">
+        <ScalarProperty Name="id" ColumnName="contacto" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

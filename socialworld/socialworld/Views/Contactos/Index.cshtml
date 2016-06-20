@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+    List<socialworld.Models.Capa_Datos.contacto> contactos = ViewBag.contactos;
+    decimal precio = ViewBag.precio;
+}
+
+<table class="form">
+    <tr>
+        <td class="titulotd">
+            <label class="lblnegrog">CONTACTOS</label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="lblnegrog">Precio por Contacto: @precio $</label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table class="tabla">
+                <tr>
+                    <td class="lbltd"><label class="lblnegro">nombres</label></td>
+                    <td class="lbltd"><label class="lblnegro">apellidos</label></td>
+                    <td class="lbltd"><label class="lblnegro">correo</label></td>
+                    <td class="lbltd"><label class="lblnegro">baja</label></td>
+                    <td class="btnstd"><button id="nuevocontacto" class="botonuevo"></button> </td>
+                </tr>
+                @if (contactos != null && contactos.Count > 0)
+                {
+                    foreach (var contacto in contactos)
+                    {
+                        <tr>
+                            <td class="lbltd"><label class="lblnegro">@contacto.nombres</label></td>
+                            <td class="lbltd"><label class="lblnegro">@contacto.apellidos</label></td>
+                            <td class="lbltd"><label class="lblnegro">@contacto.correo</label></td>
+                            <td class="lbltd"><label class="lblnegro">@contacto.baja.ToString()</label></td>
+                            <td class="btnstd">
+                                <button id="@contacto.id" class="botonactualizar actualizarcontacto"></button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta charset="utf-8" />
+        <title></title>
+        <meta name="viewport" content="width=device-width" />
+        <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+        <link href="~/Content/FrontEndStyles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="datos" data-userid="" data-root="@Url.Content("~")"></div>
+
+        <div id="render">
+            @RenderBody()
+        </div>
+
+        <script src=@Url.Content("~/Scripts/jquery-1.11.3.min.js")></script>
+        <script src=@Url.Content("~/Scripts/jquery-ui.min.js")></script>
+        <script src=@Url.Content("~/Scripts/jquery.blockUI.js")></script>
+        <script src=@Url.Content("~/Scripts/FrontEndFunctions.js")></script>
+        <script src=@Url.Content("~/Scripts/FrontEndListeners.js")></script>
+    </body>
+</html>

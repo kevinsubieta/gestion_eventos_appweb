@@ -1,0 +1,43 @@
+﻿@{
+    Layout = null;
+    socialworld.Models.Capa_Datos.contacto contacto = ViewBag.contacto;
+}
+
+<table>
+    <tr>
+        <td class="titulotd">
+            <label class="lblnegrog">contacto</label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>nombres</label>
+            <input id="nombrescontacto" class="inputp" maxlength="50" value="@( contacto != null? contacto.nombres:"" )" />
+            <label>apellidos</label>
+            <input id="apellidoscontacto" class="inputp" maxlength="50" value="@( contacto != null? contacto.apellidos:"" )" />
+            <label>correo</label>
+            <input id="correocontacto" class="inputp" maxlength="50" value="@( contacto != null? contacto.correo:"" )" />
+        </td>
+    </tr>
+    @if (contacto != null)
+    {
+        <tr>
+            <td class="checktd">
+                <label id="bajacontacto" class="@(contacto.baja? "checkboxcheked":"checkboxuncheked")" data-value="@(contacto.baja? "1":"0")">baja</label>
+            </td>
+        </tr>
+    }
+    <tr>
+        <td class="btnstda">
+            <button class="boton" id="cerrarcontacto">Cancelar</button>
+            @if (contacto == null)
+            {
+                <button class="boton" id="registrarcontacto">Registrar</button>
+            }
+            else
+            {
+                <button class="boton" id="actualizarcontacto" data-id="@contacto.id">Actualizar</button>
+            }
+        </td>
+    </tr>
+</table>

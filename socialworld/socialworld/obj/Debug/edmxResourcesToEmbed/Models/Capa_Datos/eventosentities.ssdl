@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EVENTOSBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="cliente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombres" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="apellidos" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="correo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="usuario" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="pass" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="contacto">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombres" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="apellidos" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="correo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="baja" Type="bit" Nullable="false" />
+    <Property Name="idc" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="evento">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="direccion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="fechainicio" Type="bigint" Nullable="false" />
+    <Property Name="fechafinal" Type="bigint" Nullable="false" />
+    <Property Name="cancelado" Type="bit" Nullable="false" />
+    <Property Name="idc" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="invitacion">
+    <Key>
+      <PropertyRef Name="contacto" />
+      <PropertyRef Name="evento" />
+    </Key>
+    <Property Name="contacto" Type="int" Nullable="false" />
+    <Property Name="evento" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'EVENTOSBD.dbo.tarifa' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="tarifa">
+    <Key>
+      <PropertyRef Name="contacto" />
+      <PropertyRef Name="evento" />
+    </Key>
+    <Property Name="contacto" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="evento" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__contacto__idc__0DAF0CB0">
+    <End Role="cliente" Type="Self.cliente" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="contacto" Type="Self.contacto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cliente">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="contacto">
+        <PropertyRef Name="idc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__evento__idc__0EA330E9">
+    <End Role="cliente" Type="Self.cliente" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="evento" Type="Self.evento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cliente">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="evento">
+        <PropertyRef Name="idc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__invitacio__conta__108B795B">
+    <End Role="contacto" Type="Self.contacto" Multiplicity="1" />
+    <End Role="invitacion" Type="Self.invitacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contacto">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="invitacion">
+        <PropertyRef Name="contacto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__invitacio__event__0F975522">
+    <End Role="evento" Type="Self.evento" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="invitacion" Type="Self.invitacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="evento">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="invitacion">
+        <PropertyRef Name="evento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EVENTOSBDModelStoreContainer">
+    <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="contacto" EntityType="Self.contacto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="evento" EntityType="Self.evento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="invitacion" EntityType="Self.invitacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tarifa" EntityType="Self.tarifa" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[tarifa].[contacto] AS [contacto], 
+[tarifa].[evento] AS [evento]
+FROM [dbo].[tarifa] AS [tarifa]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__contacto__idc__0DAF0CB0" Association="Self.FK__contacto__idc__0DAF0CB0">
+      <End Role="cliente" EntitySet="cliente" />
+      <End Role="contacto" EntitySet="contacto" />
+    </AssociationSet>
+    <AssociationSet Name="FK__evento__idc__0EA330E9" Association="Self.FK__evento__idc__0EA330E9">
+      <End Role="cliente" EntitySet="cliente" />
+      <End Role="evento" EntitySet="evento" />
+    </AssociationSet>
+    <AssociationSet Name="FK__invitacio__conta__108B795B" Association="Self.FK__invitacio__conta__108B795B">
+      <End Role="contacto" EntitySet="contacto" />
+      <End Role="invitacion" EntitySet="invitacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__invitacio__event__0F975522" Association="Self.FK__invitacio__event__0F975522">
+      <End Role="evento" EntitySet="evento" />
+      <End Role="invitacion" EntitySet="invitacion" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,455 @@
+﻿body {
+    margin: 0;
+    /*background-image: url(../Images/bg1.jpg);*/
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: 50% 0%;
+}
+
+#render {
+    text-align: center;
+}
+
+.panel {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background-color: white;
+    z-index: -1;
+    opacity: .8;
+}
+
+/*________________________Labels____________________________*/
+.lblnegro {
+    font-size: 15px;
+    font-family: 'Verdana', sans-serif;
+}
+
+.lblnegrog {
+    font-size: 19px;
+    font-family: 'Verdana', sans-serif;
+}
+
+.lblblanco {
+    color: white;
+    font-size: 15px;
+    font-family: 'Verdana', sans-serif;
+}
+
+.lblblancog {
+    color: white;
+    font-size: 19px;
+    font-family: 'Verdana', sans-serif;
+}
+
+.lblazul {
+    color: #063852;
+    font-size: 15px;
+    font-family: 'Verdana', sans-serif;
+}
+
+.lblazulg {
+    color: #063852;
+    font-size: 19px;
+    font-family: 'Verdana', sans-serif;
+}
+
+.lblamarillo {
+    color: #e6df44;
+    font-size: 13px;
+    font-family: 'Verdana', sans-serif;
+}
+
+.box {
+    display: inline-block;
+    background-color: #384C4D;
+    border-radius: 7px;
+    opacity: .9;
+    padding: 30px;
+}
+
+.label_login {
+    color: white;
+}
+
+/*__________________________buttons inputs checkboxs selects________________*/
+
+.input {
+    width: 220px;
+    display: block;
+    border-radius: 6px;
+    border-style: none;
+    padding:12px 15px;
+    margin: 15px;
+    outline: none;
+    font-size: 15px;
+    font-family: 'Verdana', sans-serif;
+}
+
+.inputp {
+    width: 92%;
+    border-radius: 6px;
+    border-style: none;
+    padding:8px;
+    margin: 15px;
+    outline: none;
+    font-size: 15px;
+    font-family: 'Verdana', sans-serif;
+    background-color: transparent;
+}
+
+.boton {
+    background-color: #DAEDE9;
+    border-style: none;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    color: black;
+    font-size: 15px;
+    font-family: 'Verdana', sans-serif;
+    vertical-align: middle;
+    margin: 0px 3px;
+}
+
+.botonuevo {
+    background-color: #063852;
+    border-style: none;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    background-image: url(../Images/btnnuevo.png);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    vertical-align: middle;
+    margin: 0px 3px;
+}
+
+.botonactualizar {
+    background-color: #DAEDE9;
+    border-style: none;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    background-image: url(../Images/btnmodificar.png);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    vertical-align: middle;
+    margin: 0px 3px;
+    border: 1px solid;
+}
+
+.botoneliminar {
+    background-color: #f0810f;
+    border-style: none;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    background-image: url(../Images/btneliminar.png);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    vertical-align: middle;
+    margin: 0px 3px;
+}
+
+#botonresponsive {
+    background-color: #f0810f;
+    border-style: none;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background-image: url(../Images/btnresponsive.png);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    vertical-align: middle;
+    margin: 4.5px 4.5px;
+    float: right;
+}
+
+.checkboxcheked {
+    height: 20px;
+    cursor: pointer;
+    padding-left: 25px;
+    display: inline-block;
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    background-image: url(../Images/cbchecked.png);
+    background-size: 20px;
+}
+
+.checkboxuncheked {
+    height: 20px;
+    cursor: pointer;
+    padding-left: 25px;
+    display: inline-block;
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    background-image: url(../Images/cbunchecked.png);
+    background-size: 20px;
+}
+
+.select {
+    font-size: 15px;
+    font-family: 'Verdana', sans-serif;
+}
+
+/*___________________________Login styles___________________________*/
+
+.login_container {
+    text-align: center;
+    margin-top: 90px;
+}
+
+#error-login {
+    display: none;
+    margin-bottom: 8px;
+}
+
+#iniciarsesion {
+    width: 250px;
+    margin: 15px;
+    margin-top: 0;
+    padding: 12px 10px;
+}
+/*__________________________administradores styles__________________--*/
+
+#rendersection {
+    margin-top: 49px;
+    width: 100%;
+    display: inline-block;
+}
+
+.menu_horizontal {
+    top: 0;
+    width: 100%;
+	text-align:left;
+    position: fixed;
+    z-index : 100;
+	background-color: #384C4D;    
+}
+
+.menu_horizontal a {
+    text-decoration: none;
+    display: inline-block;
+	padding: 15px;
+    color: #BCBCBC;
+    font-size: 16px;
+    font-family: 'Verdana', sans-serif;
+    cursor: pointer;
+}
+
+#saliradm {
+    float: right;
+    background-color: #f0810f;
+}
+
+.menu_horizontal a:hover {
+	background-color: #607071;
+    color: white;
+}
+
+/*____________________________________Propiedades style_________________________*/
+
+#propiedadesresponsive {
+    display: none;
+    margin-top: 20px;
+}
+
+.propiedades_container {
+    text-align: center;
+    display: table;
+    width: 100%;
+}
+
+.boxblueberry {
+    display: table-cell;
+    padding: 20px;
+    width: 50%;
+}
+
+.boxdarknavy {
+    display: inline-block;
+    border-radius: 6px;
+    padding: 20px;
+    margin: 40px 20px;
+    vertical-align: top;
+    border: 1px solid;
+    border-color: #063852;
+}
+
+.titulotd {
+    padding-bottom: 15px;
+}
+
+.inputtd {
+    padding: 5px;
+}
+
+.lbltd {
+    text-align: left;
+    padding: 0px 8px;
+}
+
+.btntd {
+    text-align: right;
+    padding: 0px 8px;
+}
+
+.btnstd {
+    text-align: right;
+    padding: 0px 8px;
+    min-width: 72px;
+}
+
+.btnstda {
+    height: 30px;
+    padding-top: 15px;
+}
+
+.checktd {
+    padding-top: 10px;
+}
+
+.btnstda > button { width: 120px; margin: 0; }
+
+.btnstda > button:first-child { float: left; }
+
+.btnstda > button:last-child { float: right; }
+
+.form {
+    width: 100%;
+    min-width: 300px;
+}
+
+.form > tbody > tr {}
+
+.form > tbody > tr > td {
+}
+
+.dialogo {
+	background-color: white;
+    border: 1px solid;
+    border-color: #063852;
+}
+
+.dialogo button {
+    font-size: 15px;
+    font-family: 'Verdana', sans-serif;
+}
+
+.dialogo select {
+    font-size: 15px;
+    font-family: 'Verdana', sans-serif;
+}
+
+.dialogo input {
+    margin: 0;
+    font-size: 15px;
+    font-family: 'Verdana', sans-serif;
+    border: 1px solid;
+}
+
+/*.dialogo table {
+    width: 100%;
+}*/
+
+.dialogo .ui-dialog-titlebar { display: none; }
+
+/*.dialogo .ui-dialog-title { }
+
+.dialogo .ui-dialog-titlebar-close { }
+
+.dialogo ui-dialog-content { }
+
+.dialogo .ui-dialog-buttonpane { }
+
+.dialogo .ui-dialog-buttonset { }*/
+
+.tabla {
+    width: 100%;
+    background-color: white;
+    border-radius: 3px;
+    border: 1px solid;
+    border-color: black;
+    border-spacing: 0;
+}
+
+.tabla td{
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.tabla tr:nth-child(even) {
+    background-color: #f2f2f2;  
+}
+
+@media only screen and (max-width: 772px){
+    .boxblueberry {
+        width: 100%;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    #numericasection {
+        display: none;
+    }
+
+    #propiedadesresponsive {
+        display: block;
+    }
+}
+
+
+/*_______________________responsive Changes______________*/
+
+.hovered {
+    background-color: #063852;
+}
+
+#menuresponsive {
+    display: none;
+    background-color: #011a27;
+    height: 49px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+@media only screen and (max-width: 605px){
+
+    #saliradm {
+        float: none;
+        background-color: #011a27;
+    }
+
+    #saliradm:hover {
+        background-color: #063852;
+    }
+
+    #menuresponsive {
+        display: block;        
+    }
+
+    .menu_horizontal {
+        display: none;
+        top: 49px;
+    }
+
+    .menu_horizontal a{
+        display:block;
+    }
+
+    #saliradm {
+        background-color: transparent;
+        float: none;
+    }
+}

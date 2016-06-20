@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EVENTOSBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellidos" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="pass" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contacto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellidos" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="baja" Type="bit" Nullable="false" />
+          <Property Name="idc" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="evento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fechainicio" Type="bigint" Nullable="false" />
+          <Property Name="fechafinal" Type="bigint" Nullable="false" />
+          <Property Name="cancelado" Type="bit" Nullable="false" />
+          <Property Name="idc" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="invitacion">
+          <Key>
+            <PropertyRef Name="contacto" />
+            <PropertyRef Name="evento" />
+          </Key>
+          <Property Name="contacto" Type="int" Nullable="false" />
+          <Property Name="evento" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'EVENTOSBD.dbo.tarifa' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="tarifa">
+          <Key>
+            <PropertyRef Name="contacto" />
+            <PropertyRef Name="evento" />
+          </Key>
+          <Property Name="contacto" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="evento" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__contacto__idc__0DAF0CB0">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="contacto" Type="Self.contacto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="contacto">
+              <PropertyRef Name="idc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__evento__idc__0EA330E9">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="evento" Type="Self.evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="evento">
+              <PropertyRef Name="idc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__invitacio__conta__108B795B">
+          <End Role="contacto" Type="Self.contacto" Multiplicity="1" />
+          <End Role="invitacion" Type="Self.invitacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contacto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="invitacion">
+              <PropertyRef Name="contacto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__invitacio__event__0F975522">
+          <End Role="evento" Type="Self.evento" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="invitacion" Type="Self.invitacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="evento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="invitacion">
+              <PropertyRef Name="evento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EVENTOSBDModelStoreContainer">
+          <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contacto" EntityType="Self.contacto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="evento" EntityType="Self.evento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="invitacion" EntityType="Self.invitacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tarifa" EntityType="Self.tarifa" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[tarifa].[contacto] AS [contacto], 
+[tarifa].[evento] AS [evento]
+FROM [dbo].[tarifa] AS [tarifa]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__contacto__idc__0DAF0CB0" Association="Self.FK__contacto__idc__0DAF0CB0">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="contacto" EntitySet="contacto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__evento__idc__0EA330E9" Association="Self.FK__evento__idc__0EA330E9">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="evento" EntitySet="evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__invitacio__conta__108B795B" Association="Self.FK__invitacio__conta__108B795B">
+            <End Role="contacto" EntitySet="contacto" />
+            <End Role="invitacion" EntitySet="invitacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__invitacio__event__0F975522" Association="Self.FK__invitacio__event__0F975522">
+            <End Role="evento" EntitySet="evento" />
+            <End Role="invitacion" EntitySet="invitacion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EVENTOSBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tarifa">
+          <Key>
+            <PropertyRef Name="contacto" />
+            <PropertyRef Name="evento" />
+          </Key>
+          <Property Name="contacto" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="evento" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="EVENTOSBDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tarifas" EntityType="Self.tarifa" />
+          <EntitySet Name="clientes" EntityType="EVENTOSBDModel.cliente" />
+          <EntitySet Name="contactoes" EntityType="EVENTOSBDModel.contacto" />
+          <EntitySet Name="eventoes" EntityType="EVENTOSBDModel.evento" />
+          <AssociationSet Name="FK__contacto__idc__0DAF0CB0" Association="EVENTOSBDModel.FK__contacto__idc__0DAF0CB0">
+            <End Role="cliente" EntitySet="clientes" />
+            <End Role="contacto" EntitySet="contactoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__evento__idc__0EA330E9" Association="EVENTOSBDModel.FK__evento__idc__0EA330E9">
+            <End Role="cliente" EntitySet="clientes" />
+            <End Role="evento" EntitySet="eventoes" />
+          </AssociationSet>
+          <AssociationSet Name="invitacion" Association="EVENTOSBDModel.invitacion">
+            <End Role="contacto" EntitySet="contactoes" />
+            <End Role="evento" EntitySet="eventoes" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="cliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombres" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="apellidos" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="correo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pass" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="contactoes" Relationship="EVENTOSBDModel.FK__contacto__idc__0DAF0CB0" FromRole="cliente" ToRole="contacto" />
+          <NavigationProperty Name="eventoes" Relationship="EVENTOSBDModel.FK__evento__idc__0EA330E9" FromRole="cliente" ToRole="evento" />
+        </EntityType>
+        <EntityType Name="contacto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombres" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="apellidos" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="correo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="baja" Type="Boolean" Nullable="false" />
+          <Property Name="idc" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cliente" Relationship="EVENTOSBDModel.FK__contacto__idc__0DAF0CB0" FromRole="contacto" ToRole="cliente" />
+          <NavigationProperty Name="eventoes" Relationship="EVENTOSBDModel.invitacion" FromRole="contacto" ToRole="evento" />
+        </EntityType>
+        <EntityType Name="evento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="direccion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fechainicio" Type="Int64" Nullable="false" />
+          <Property Name="fechafinal" Type="Int64" Nullable="false" />
+          <Property Name="cancelado" Type="Boolean" Nullable="false" />
+          <Property Name="idc" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cliente" Relationship="EVENTOSBDModel.FK__evento__idc__0EA330E9" FromRole="evento" ToRole="cliente" />
+          <NavigationProperty Name="contactoes" Relationship="EVENTOSBDModel.invitacion" FromRole="evento" ToRole="contacto" />
+        </EntityType>
+        <Association Name="FK__contacto__idc__0DAF0CB0">
+          <End Type="EVENTOSBDModel.cliente" Role="cliente" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="EVENTOSBDModel.contacto" Role="contacto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="contacto">
+              <PropertyRef Name="idc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__evento__idc__0EA330E9">
+          <End Type="EVENTOSBDModel.cliente" Role="cliente" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="EVENTOSBDModel.evento" Role="evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="evento">
+              <PropertyRef Name="idc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="invitacion">
+          <End Type="EVENTOSBDModel.contacto" Role="contacto" Multiplicity="*" />
+          <End Type="EVENTOSBDModel.evento" Role="evento" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EVENTOSBDModelStoreContainer" CdmEntityContainer="EVENTOSBDEntities">
+          <EntitySetMapping Name="tarifas">
+            <EntityTypeMapping TypeName="EVENTOSBDModel.tarifa">
+              <MappingFragment StoreEntitySet="tarifa">
+                <ScalarProperty Name="contacto" ColumnName="contacto" />
+                <ScalarProperty Name="evento" ColumnName="evento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clientes">
+            <EntityTypeMapping TypeName="EVENTOSBDModel.cliente">
+              <MappingFragment StoreEntitySet="cliente">
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contactoes">
+            <EntityTypeMapping TypeName="EVENTOSBDModel.contacto">
+              <MappingFragment StoreEntitySet="contacto">
+                <ScalarProperty Name="idc" ColumnName="idc" />
+                <ScalarProperty Name="baja" ColumnName="baja" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="eventoes">
+            <EntityTypeMapping TypeName="EVENTOSBDModel.evento">
+              <MappingFragment StoreEntitySet="evento">
+                <ScalarProperty Name="idc" ColumnName="idc" />
+                <ScalarProperty Name="cancelado" ColumnName="cancelado" />
+                <ScalarProperty Name="fechafinal" ColumnName="fechafinal" />
+                <ScalarProperty Name="fechainicio" ColumnName="fechainicio" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="invitacion" TypeName="EVENTOSBDModel.invitacion" StoreEntitySet="invitacion">
+            <EndProperty Name="evento">
+              <ScalarProperty Name="id" ColumnName="evento" />
+            </EndProperty>
+            <EndProperty Name="contacto">
+              <ScalarProperty Name="id" ColumnName="contacto" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

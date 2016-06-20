@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    if (TempData["lay"] != null)
+    {
+        Layout = null;
+    }
+}
+
+<div class="login_container">
+    <div class="box">
+        <label class="lblblancog">Iniciar Sesión</label>
+        <input id="username" class="input" placeholder="nombre de usuario" value="brianroy" />
+        <input id="password" class="input" placeholder="contraseña" type="password" value="12345" />
+        <label id="error-login" class="lblamarillo">Usuario y/o contraseña incorrectos.</label>
+        <button id="iniciarsesion" class="boton label-blanco">Entrar</button>
+    </div>
+</div>
+
